@@ -44,18 +44,42 @@ public class IHM extends JFrame {
         g1.ajouter(new Contributeur("g1_b1",200));
         g.ajouter(g1);
 
-        try{
-            resultat.setText(Main.arbreXML(g)); //actualiser();
-        }catch(Exception e){}
+        actualiser();
 
-        debiter.addActionListener(null/* a completer */);
-        crediter.addActionListener(null/* a completer */);
+        ButtonsListener buttonsListener = new ButtonsListener();
+        debiter.addActionListener(buttonsListener);
+        crediter.addActionListener(buttonsListener);
 
             
         this.pack();
         this.setVisible(true);
     }
-
+    public void actualiser(){
+        try{
+            resultat.setText(Main.arbreXML(g));
+        }catch(Exception e){}
+    }
+    private class ButtonsListener implements ActionListener{
+        public void actionPerformed(ActionEvent ae){
+            Object event = ae.getSource();
+            String vs = somme.getText();
+            if(event == debiter){
+                try{
+                    AbstractTransaction trans = new TransactionDebit(g);
+                    trans.debit(Integer.parseInt(vs));
+                } catch(Exception exc){
+                    System.out.println(exc.getMessage());
+                }
+            } else if(event == crediter){
+                try{
+                    g.credit(Integer.parseInt(vs));
+                } catch(Exception exc){
+                    System.out.println(exc.getMessage());
+                }
+            }
+            actualiser();
+        }
+    }
     public static void main() {
         new IHM();    
     }    

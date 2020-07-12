@@ -6,7 +6,19 @@ import question1.*;
 public class TestsDesVisiteurs extends junit.framework.TestCase{
 
     public void testACompleter(){
-        fail(" cette méthode de tests, est à compléter, appels des trois visiteurs....");
+        Contributeur c = new Contributeur("c",100);
+        GroupeDeContributeurs g = new GroupeDeContributeurs("g");
+        g.ajouter(c);
+        CompositeValide per1= new CompositeValide();
+        SansDoublon per2= new SansDoublon();
+        DebitMaximal per3= new DebitMaximal();
+
+        per1.visite(g);
+        per2.visite(g);
+        per3.visite(g);
+        per1.visite(c);
+        per2.visite(c);
+        per3.visite(c);
     }
 
 

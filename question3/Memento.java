@@ -4,17 +4,18 @@ import question1.*;
 import java.util.*;
 
 public class Memento {
+    private HashMap<Cotisant,Integer> s; 
      // Note : Un usage du patron Memento, 
-     //        d’un premier visiteur pour la sauvegarde et 
-     //        d’un second pour la restitution du composite, 
-     //        représentent une solution possible. 
+     //        dï¿½un premier visiteur pour la sauvegarde et 
+     //        dï¿½un second pour la restitution du composite, 
+     //        reprï¿½sentent une solution possible. 
      
      public Memento(Cotisant c) {
-       // sauvegarde
+      s = c.accepter(new VisiteurSauvegarde()); 
      }
 
      public void setState(Cotisant c) {
-       // restitution
-     }
+      c.accepter(new VisiteurRestitution(s));      
+      }
     
     }
